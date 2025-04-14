@@ -23,7 +23,7 @@ def get_db_connection():
         print(f"Database connection failed: {e}")
         return None
 
-@app.route('/products', methods=['GET'])
+@app.route('/api/products', methods=['GET'])
 def get_products():
     connection = get_db_connection()
     if not connection:
@@ -36,7 +36,7 @@ def get_products():
     connection.close()
     return jsonify(products)
 
-@app.route('/products', methods=['POST'])
+@app.route('/api/products', methods=['POST'])
 def add_product():
     data = request.json
     if not data or 'name' not in data or 'price' not in data:
@@ -66,7 +66,7 @@ def add_product():
     except Error as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/products/<int:id>', methods=['GET'])
+@app.route('/api/products/<int:id>', methods=['GET'])
 def get_product(id):
     connection = get_db_connection()
     if not connection:
@@ -83,7 +83,7 @@ def get_product(id):
 
     return jsonify(product)
 
-@app.route('/products/<int:id>', methods=['PUT'])
+@app.route('/api/products/<int:id>', methods=['PUT'])
 def update_product(id):
     data = request.json
     if not data:
@@ -125,7 +125,7 @@ def update_product(id):
     except Error as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/products/<int:id>', methods=['DELETE'])
+@app.route('/api/products/<int:id>', methods=['DELETE'])
 def delete_product(id):
     connection = get_db_connection()
     if not connection:
